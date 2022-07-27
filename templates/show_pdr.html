@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add PDR</title>
+      <style>
+         table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+ 
+            table {
+                width: 100%;
+            }
+ 
+            table.fixed {
+                table-layout: fixed;
+            }
+            table.fixed td {
+                overflow: hidden;
+            }
+      </style>
+</head>
+<body>
+    <h3>PDR form</h3>
+    <form action="/add" method="POST">
+        <label for="user_name" >User Name</label>
+        <input type="text" name="user_name" placeholder="user name" id="user_name">
+        <br>
+        <label for="processes" >Process Name</label>
+        <SELECT class="form-control" id="processes">
+        {% for o in processes %}
+            <option value="{{ o }}">{{ o }}</option>
+        {% endfor %}
+        </SELECT>
+        <label for="process_techs">Process Tech Name</label>
+        <select class="form-control" id="process_techs">
+        {% for o in process_techs %}
+            <option value="{{ o }}">{{ o }}</option>
+        {% endfor %}
+        </select>
+        <label for="pbc_names">PBC Name</label>
+        <SELECT class="form-control" id="pbc_names">
+        {% for o in pbc_names %}
+            <option value="{{ o }}">{{ o }}</option>
+        {% endfor %}
+        </SELECT>
+    </form>
+    <div>
+    <button type="button" style="color:white; background:#3498DB;" id="process_input">Retrive PB Handbook</button>
+    </div><br><br>
+    <div id="retrieved_data">
+        Results:
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+        $('#processes').change(function(){
+
+          $.getJSON('/_update_dropdown', {
+            selected_process: $('#processes').val()
+
+          }).success(function(data) {
+                $('#process_techs').html(data.html_string_selected);
+           })
+        });
+        $('#process_input').bind('click', function() {
+
+            $.getJSON('/_process_data', {
+                user_name: $('#user_name').val(),
+                selected_process: $('#processes').val(),
+                selected_process_tech: $('#process_techs').val(),
+                selected_pbc_name: $('#pbc_names').val(),
+
+
+            }).success(function(data) {
+                $('#retrieved_data').html(data.html_string_selected);
+            })
+          return false;
+
+        });
+      });
+    </script>
+</body>
+</html>

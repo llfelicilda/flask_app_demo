@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View PDR</title>
+      <style>
+         table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+ 
+            table {
+                width: 100%;
+            }
+ 
+            table.fixed {
+                table-layout: fixed;
+            }
+            table.fixed td {
+                overflow: hidden;
+            }
+      </style>
+</head>
+<body>
+    <br>
+    <label>session_id: {{session_id}}</label>
+    <br><br>
+    <a href="/" type="button">Back to Sessions List</a>
+    <br><br><br>
+    <table>
+         <thead>
+         {% for col in columns %}
+            <th>{{col}}</th>
+         {% endfor%}
+         </thead>
+         {% for data in sessions %}
+         <tbody>
+            <td>{{data.PB_code}}</td>
+            <td>{{data.Process_results_Min}}</td>
+            <td>{{data.Process_results_Max}}</td>
+            <td>{{data.Process_results_Ave}}</td>
+            <td>{{data.Process_results_sigma}}</td>
+            <td>{{data.Process_results_attribute}}</td>
+            <td>{{data.Target_achieved}}</td>
+            <td>{{data.Rec_action_number}}</td>
+         </tbody>
+         {% endfor%}
+      </table>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Index Page</title>
+    <style>
+         table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+ 
+            table {
+                width: 50%;
+            }
+ 
+            table.fixed {
+                table-layout: fixed;
+            }
+            table.fixed td {
+                overflow: hidden;
+            }
+      </style>
+</head>
+<body>
+	<h3>Options</h3>
+	<a href="/pdr">ADD PDR</a>
+    <br><br>
+    <table>
+         <thead>
+            <th>session_id</th>
+            <th>submission time</th>
+            <th>Username</th>
+            <th>Actions</th>
+         </thead>
+         {% for data in sessions %}
+         <tbody>
+            <td>{{data.session_id}}</td>
+            <td>{{data.submit_time}}</td>
+            <td>{{data.username}}</td>
+            <td><a href="/show/{{data.session_id}}" type="button">Show</a>/<a href="/delete/{{data.session_id}}" type="button">Delete</a></td>
+         </tbody>
+         {% endfor%}
+      </table>
+</body>
+</html>
+
